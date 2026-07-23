@@ -10,7 +10,7 @@ export const auth = betterAuth({
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID as string, 
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-      hd: "vitstudent.ac.in",
+      // hd: "vitstudent.ac.in",
     },
   },
 });

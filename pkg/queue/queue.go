@@ -9,17 +9,17 @@ import (
 var ErrLeaseLost = errors.New("queue: lease lost")
 
 type Job struct {
-	ID       string
-	Kind     string
-	Priority int    
-	Payload  []byte
+	ID        string
+	Kind      string
+	Priority  int
+	Payload   []byte
 	DedupeKey string
 }
 
 type Lease struct {
 	Job      Job
-	Attempt  int    
-	Token    string 
+	Attempt  int
+	Token    string
 	Deadline time.Time
 }
 

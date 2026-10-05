@@ -17,7 +17,7 @@ const (
 	RuntimeError        Verdict = "RE"
 	OutputLimitExceeded Verdict = "OLE"
 	CompilationError    Verdict = "CE"
-	InternalError Verdict = "IE"
+	InternalError       Verdict = "IE"
 )
 
 type Stage string
@@ -59,11 +59,11 @@ type TestResult struct {
 }
 
 type Result struct {
-	Verdict       Verdict
-	CompileOutput string // truncated to 64 KiB
-	Tests         []TestResult
-	MaxTime       time.Duration
-	MaxMemoryKiB  int64
+	Verdict         Verdict
+	CompileOutput   string // truncated to 64 KiB
+	Tests           []TestResult
+	MaxTime         time.Duration
+	MaxMemoryKiB    int64
 	Provider        string
 	ToolchainDigest string
 }
@@ -79,4 +79,3 @@ type Provider interface {
 	Judge(ctx context.Context, job Job, report func(Progress)) (Result, error)
 	Health(ctx context.Context) error
 }
-

@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-var ErrNotFound = errors.New("Session: Not Found")
+var ErrNotFound = errors.New("session: not found")
 
 type Session struct {
 	IDHash    []byte

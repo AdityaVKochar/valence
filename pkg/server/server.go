@@ -15,7 +15,7 @@ func Health(mux *http.ServeMux, ready ReadyFunc) {
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, r *http.Request) {
 		_, _ = w.Write([]byte("Ok\n"))
 	})
-	
+
 	mux.HandleFunc("GET /readyz", func(w http.ResponseWriter, r *http.Request) {
 		if ready != nil {
 			ctx, cancel := context.WithTimeout(r.Context(), 2*time.Second)
@@ -36,18 +36,18 @@ func Run(ctx context.Context, addr string, h http.Handler, shutdownTimeout time.
 	}
 
 	srv := &http.Server{
-		Handler: h,
+		Handler:           h,
 		ReadHeaderTimeout: 10 * time.Second,
 	}
 
 	errc := make(chan error, 1)
-	go func() { errc <- srv.Serve(ln) } ()
+	go func() { errc <- srv.Serve(ln) }()
 	slog.Info("HTTP Server listening", "addr", ln.Addr().String())
 
 	select {
-		case err := <-errc:
-			return err
-		case <- ctx.Done():
+	case err := <-errc:
+		return err
+	case <-ctx.Done():
 	}
 
 	slog.Info("Shutting Down", "timeout", shutdownTimeout)

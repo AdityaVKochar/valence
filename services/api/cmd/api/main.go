@@ -29,6 +29,7 @@ func run() error {
 	flag.Parse()
 	if *showVersion {
 		fmt.Println("API", version.String())
+		return nil
 	}
 
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)

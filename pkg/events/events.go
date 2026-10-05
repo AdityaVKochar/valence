@@ -4,7 +4,7 @@ import "context"
 
 type Event struct {
 	Topic string
-	Data []byte
+	Data  []byte
 }
 
 type Bus interface {

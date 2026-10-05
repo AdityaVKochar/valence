@@ -1,0 +1,10 @@
+* text=auto eol=lf
+*.sh text eol=lf
+
+# Problem test data must stay byte-exact (checkers compare bytes).
+problems/**/tests/* -text
+
+# Generated code: collapsed in PR diffs.
+gen/** linguist-generated=true
+apps/web/src/gen/** linguist-generated=true
+services/api/internal/db/** linguist-generated=true

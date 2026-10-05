@@ -8,8 +8,8 @@ import (
 )
 
 var (
-	ErrNotFound = errors.New("Blob: Not Found")
-	ErrNotSupported = errors.New("Blob: Not supported by this store")
+	ErrNotFound     = errors.New("blob: not found")
+	ErrNotSupported = errors.New("blob: not supported by this store")
 )
 
 type Key string

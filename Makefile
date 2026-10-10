@@ -90,3 +90,7 @@ vet: ## Run go vet
 .PHONY: sandbox-test
 sandbox-test: ## Run the sandbox escape suite against the isolate provider (Linux, root)
 	VALENCE_TEST_ISOLATE=1 go test -count=1 -v ./services/judge-worker/internal/escape/
+
+.PHONY: smoke
+smoke: ## Run the k6 smoke test against a running API and worker (needs k6)
+	k6 run loadtest/smoke.js

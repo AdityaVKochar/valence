@@ -2,10 +2,13 @@ package judge
 
 import (
 	"context"
+	"errors"
 	"time"
 
 	"github.com/AdityaVKochar/valence/pkg/blob"
 )
+
+var ErrPermanent = errors.New("judge: permanent failure")
 
 type Verdict string
 

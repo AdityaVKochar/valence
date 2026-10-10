@@ -30,6 +30,7 @@ type Language struct {
 	CompileProcesses      int               `yaml:"compile_processes"`
 	RunProcesses          int               `yaml:"run_processes"`
 	UnboundedAddressSpace bool              `yaml:"unbounded_address_space"`
+	Dirs                  []string          `yaml:"dirs"`
 	Template              string            `yaml:"template"`
 }
 

@@ -73,6 +73,7 @@ languages:
     compile_processes: 64
     run_processes: 64
     unbounded_address_space: true
+    dirs: [/etc]
     template: |
       import java.io.*;
       import java.util.*;
@@ -97,6 +98,7 @@ languages:
     compile_processes: 64
     run_processes: 64
     unbounded_address_space: true
+    dirs: [/etc]
     template: |
       fun main() {
           val (a, b) = readln().split(" ").map { it.toLong() }

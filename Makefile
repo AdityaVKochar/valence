@@ -89,4 +89,4 @@ vet: ## Run go vet
 
 .PHONY: sandbox-test
 sandbox-test: ## Run the sandbox escape suite against the isolate provider (Linux, root)
-	go test -count=1 -v ./judge/sandbox-tests/...
+	VALENCE_TEST_ISOLATE=1 go test -count=1 -v ./services/judge-worker/internal/escape/

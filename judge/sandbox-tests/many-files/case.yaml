@@ -1,0 +1,2 @@
+proves: Creating files without end is cut off by the time, file-size and open-file limits and leaves the host's disk usable.
+verdicts: [AC, RE, TLE, OLE]

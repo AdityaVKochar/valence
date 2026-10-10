@@ -1,0 +1,2 @@
+proves: Memory use is capped by the cgroup, so a program that allocates without end is stopped with MLE before the host runs out of memory.
+verdicts: [MLE, RE]

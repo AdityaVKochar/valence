@@ -1,0 +1,2 @@
+proves: Symlinks are resolved inside the box's own filesystem view, so a link cannot reach files on the host.
+verdicts: [AC, RE]

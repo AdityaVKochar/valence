@@ -1,0 +1,6 @@
+proves: A submission can only write inside its own box; system directories are read-only and the host's /tmp is not reachable.
+verdicts: [AC, RE]
+host_absent:
+  - /tmp/valence-escape-write
+  - /var/tmp/valence-escape-write
+  - /dev/shm/valence-escape-write

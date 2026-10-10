@@ -1,0 +1,2 @@
+proves: Unbounded recursion hits the stack and memory limits and ends as RE or MLE instead of taking memory from the host.
+verdicts: [RE, MLE, TLE]

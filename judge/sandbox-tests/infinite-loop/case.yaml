@@ -1,0 +1,2 @@
+proves: CPU time is limited, so a program that never stops is killed with TLE.
+verdicts: [TLE]

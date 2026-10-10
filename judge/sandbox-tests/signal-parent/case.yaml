@@ -1,0 +1,2 @@
+proves: Signals sent to the parent or to every process (kill -1) only reach processes inside the box, so a submission cannot kill the worker.
+verdicts: [AC, RE, TLE]

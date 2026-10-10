@@ -76,6 +76,7 @@ pnpm --filter web build
 - [How judging works](docs/judging.md)
 - [Running a judge worker](docs/judge-setup.md)
 - [Sandbox escape tests](judge/sandbox-tests/README.md)
+- Load testing: `make smoke` runs [loadtest/smoke.js](loadtest/smoke.js) with [k6](https://grafana.com/docs/k6/latest/set-up/install-k6/)
 
 ## Planned stack
 

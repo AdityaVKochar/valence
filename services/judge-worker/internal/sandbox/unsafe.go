@@ -151,21 +151,30 @@ func (b *unsafeBox) Run(ctx context.Context, cmd Cmd) (Result, error) {
 	}
 
 	start := time.Now()
-	runErr := c.Run()
+	if err := c.Start(); err != nil {
+		return Result{}, fmt.Errorf("sandbox: start %s: %w", prog, err)
+	}
+	oom := watchMemory(c.Process, l.MemoryKiB)
+	runErr := c.Wait()
 	wallTime := time.Since(start)
+	peak, killed := oom()
 	if ctx.Err() != nil {
 		return Result{}, ctx.Err()
 	}
 	if c.ProcessState == nil {
-		return Result{}, fmt.Errorf("sandbox: start %s: %w", prog, runErr)
+		return Result{}, fmt.Errorf("sandbox: wait %s: %w", prog, runErr)
 	}
 	r := Result{WallTime: wallTime}
 	if ru, ok := c.ProcessState.SysUsage().(*syscall.Rusage); ok {
 		r.CPUTime = time.Duration(ru.Utime.Nano() + ru.Stime.Nano())
 		r.MemoryKiB = maxRSSKiB(ru)
 	}
+	r.MemoryKiB = max(r.MemoryKiB, peak)
 	ws, _ := c.ProcessState.Sys().(syscall.WaitStatus)
 	switch {
+	case killed:
+		r.Status = OutOfMemory
+		r.Signal = int(syscall.SIGKILL)
 	case rctx.Err() == context.DeadlineExceeded:
 		r.Status = TimedOut
 		r.Message = "wall time limit exceeded"
@@ -198,6 +207,50 @@ func (b *unsafeBox) Run(ctx context.Context, cmd Cmd) (Result, error) {
 }
 
 const helperExecFailed = 127
+
+// watchMemory polls the resident memory of p and kills it once it goes over
+// limitKiB. Without cgroups this is the closest local-unsafe gets to a memory limit: an
+// allocation that is paged in slowly would otherwise run into the CPU limit first and get TLE.
+// The returned function stops the watcher and reports the highest reading and whether it killed.
+func watchMemory(p *os.Process, limitKiB int64) func() (peakKiB int64, killed bool) {
+	if limitKiB <= 0 {
+		return func() (int64, bool) { return 0, false }
+	}
+	if _, ok := currentRSSKiB(p.Pid); !ok {
+		return func() (int64, bool) { return 0, false }
+	}
+	stop := make(chan struct{})
+	done := make(chan struct{})
+	var peak int64
+	var killed bool
+	go func() {
+		defer close(done)
+		t := time.NewTicker(5 * time.Millisecond)
+		defer t.Stop()
+		for {
+			select {
+			case <-stop:
+				return
+			case <-t.C:
+			}
+			rss, ok := currentRSSKiB(p.Pid)
+			if !ok {
+				continue
+			}
+			peak = max(peak, rss)
+			if rss > limitKiB {
+				killed = true
+				_ = p.Kill()
+				return
+			}
+		}
+	}()
+	return func() (int64, bool) {
+		close(stop)
+		<-done
+		return peak, killed
+	}
+}
 
 func RunHelperIfRequested() {
 	spec, ok := os.LookupEnv(helperEnv)

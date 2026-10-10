@@ -5,6 +5,7 @@ package sandbox
 import (
 	"context"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"runtime"
 	"testing"
@@ -77,5 +78,29 @@ func TestUnsafeStatuses(t *testing.T) {
 				t.Fatalf("limits were not enforced in time: %v", time.Since(start))
 			}
 		})
+	}
+}
+
+func TestUnsafeMemoryLimit(t *testing.T) {
+	if runtime.GOOS != "linux" {
+		t.Skip("local-unsafe only watches memory on Linux")
+	}
+	if _, err := exec.LookPath("python3"); err != nil {
+		t.Skip("needs python3")
+	}
+	b := newUnsafeBox(t)
+	limits := shLimits
+	limits.CPUTime, limits.WallTime, limits.MemoryKiB = 5*time.Second, 10*time.Second, 64<<10
+	r, err := b.Run(context.Background(), Cmd{
+		Args:   []string{"python3", "-c", "import time; x = b'1' * (512 << 20); time.sleep(5)"},
+		Env:    []string{"PATH=/usr/bin:/bin"},
+		Stdout: "out",
+		Limits: limits,
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r.Status != OutOfMemory || r.MemoryKiB <= limits.MemoryKiB {
+		t.Fatalf("got %+v, want OutOfMemory above %d KiB", r, limits.MemoryKiB)
 	}
 }

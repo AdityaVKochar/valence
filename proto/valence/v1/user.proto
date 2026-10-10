@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package valence.v1;
+
+enum Role {
+  ROLE_UNSPECIFIED = 0;
+  ROLE_CONTESTANT = 1;
+  ROLE_SETTER = 2;
+  ROLE_ADMIN = 3;
+}
+
+message User {
+  int64 id = 1;
+  string handle = 2;
+  string display_name = 3;
+  string avatar_url = 4;
+  Role role = 5;
+}
+
+service UserService {
+  rpc GetMe(GetMeRequest) returns (GetMeResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+}
+
+message GetMeRequest {}
+
+message GetMeResponse {
+  User user = 1;
+}
+
+service AuthService {
+  rpc ListAuthProviders(ListAuthProvidersRequest) returns (ListAuthProvidersResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+}
+
+message ListAuthProvidersRequest {}
+
+message AuthProvider {
+  string id = 1;
+  string display_name = 2;
+  string login_url = 3;
+}
+
+message ListAuthProvidersResponse {
+  repeated AuthProvider providers = 1;
+  string logout_url = 2;
+}

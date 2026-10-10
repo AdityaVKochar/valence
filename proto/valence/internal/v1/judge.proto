@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package valence.internal.v1;
+
+import "valence/v1/submission.proto";
+
+service JudgeService {
+  rpc GetJob(GetJobRequest) returns (GetJobResponse);
+  rpc ReportProgress(ReportProgressRequest) returns (ReportProgressResponse);
+  rpc ReportResult(ReportResultRequest) returns (ReportResultResponse);
+}
+
+message GetJobRequest {
+  int64 submission_id = 1;
+  int32 attempt = 2;
+}
+
+message JudgeTest {
+  int32 ordinal = 1;
+  string input_key = 2;
+  int64 input_size = 3;
+  string output_key = 4;
+  int64 output_size = 5;
+}
+
+message JudgeJob {
+  int64 submission_id = 1;
+  int32 attempt = 2;
+  string language = 3;
+  bytes source = 4;
+  int32 time_limit_ms = 5;
+  int32 memory_limit_kib = 6;
+  string checker = 7;
+  repeated JudgeTest tests = 8;
+}
+
+message GetJobResponse {
+  JudgeJob job = 1;
+  bool already_finalized = 2;
+}
+
+enum Stage {
+  STAGE_UNSPECIFIED = 0;
+  STAGE_LEASED = 1;
+  STAGE_COMPILING = 2;
+  STAGE_RUNNING = 3;
+  STAGE_CHECKING = 4;
+  STAGE_RETRYABLE_ERROR = 5;
+}
+
+message ReportProgressRequest {
+  int64 submission_id = 1;
+  int32 attempt = 2;
+  Stage stage = 3;
+  int32 test = 4;
+  string provider = 5;
+  string worker = 6;
+}
+
+message ReportProgressResponse {
+  bool accepted = 1;
+}
+
+message JudgeTestResult {
+  int32 ordinal = 1;
+  valence.v1.Verdict verdict = 2;
+  int32 time_ms = 3;
+  int32 memory_kib = 4;
+}
+
+message ReportResultRequest {
+  int64 submission_id = 1;
+  int32 attempt = 2;
+  valence.v1.Verdict verdict = 3;
+  string compile_output = 4;
+  repeated JudgeTestResult tests = 5;
+  int32 time_ms = 6;
+  int32 memory_kib = 7;
+  string provider = 8;
+  string worker = 9;
+  int32 infra_retries = 10;
+  string error = 11;
+}
+
+message ReportResultResponse {
+  bool applied = 1;
+}

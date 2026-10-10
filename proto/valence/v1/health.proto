@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package valence.v1;
+
+service HealthService {
+  rpc Ping(PingRequest) returns (PingResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+}
+
+message PingRequest {}
+
+message PingResponse {
+  string server_version = 1;
+  string database_version = 2;
+}

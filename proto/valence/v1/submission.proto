@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+package valence.v1;
+
+import "google/protobuf/timestamp.proto";
+
+enum SubmissionStatus {
+  SUBMISSION_STATUS_UNSPECIFIED = 0;
+  SUBMISSION_STATUS_QUEUED = 1;
+  SUBMISSION_STATUS_LEASED = 2;
+  SUBMISSION_STATUS_COMPILING = 3;
+  SUBMISSION_STATUS_RUNNING = 4;
+  SUBMISSION_STATUS_CHECKING = 5;
+  SUBMISSION_STATUS_FINALIZED = 6;
+  SUBMISSION_STATUS_RETRYABLE_ERROR = 7;
+}
+
+enum Verdict {
+  VERDICT_UNSPECIFIED = 0;
+  VERDICT_ACCEPTED = 1;
+  VERDICT_WRONG_ANSWER = 2;
+  VERDICT_TIME_LIMIT_EXCEEDED = 3;
+  VERDICT_MEMORY_LIMIT_EXCEEDED = 4;
+  VERDICT_RUNTIME_ERROR = 5;
+  VERDICT_OUTPUT_LIMIT_EXCEEDED = 6;
+  VERDICT_COMPILATION_ERROR = 7;
+  VERDICT_INTERNAL_ERROR = 8;
+}
+
+message Language {
+  string id = 1;
+  string display_name = 2;
+  string monaco_language = 3;
+  string source_file = 4;
+  string template = 5;
+}
+
+message Submission {
+  int64 id = 1;
+  int64 user_id = 2;
+  string user_handle = 3;
+  string problem_slug = 4;
+  string problem_title = 5;
+  string language = 6;
+  int32 attempt = 7;
+  SubmissionStatus status = 8;
+  Verdict verdict = 9;
+  optional int32 time_ms = 10;
+  optional int32 memory_kib = 11;
+  optional int32 current_test = 12;
+  google.protobuf.Timestamp created_at = 13;
+  google.protobuf.Timestamp judged_at = 14;
+}
+
+message TestResult {
+  int32 ordinal = 1;
+  Verdict verdict = 2;
+  int32 time_ms = 3;
+  bool is_sample = 4;
+  optional int32 memory_kib = 5;
+}
+
+service SubmissionService {
+  rpc ListLanguages(ListLanguagesRequest) returns (ListLanguagesResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+  rpc SubmitSolution(SubmitSolutionRequest) returns (SubmitSolutionResponse);
+  rpc GetSubmission(GetSubmissionRequest) returns (GetSubmissionResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+  rpc ListMySubmissions(ListMySubmissionsRequest) returns (ListMySubmissionsResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+}
+
+message ListLanguagesRequest {}
+
+message ListLanguagesResponse {
+  repeated Language languages = 1;
+}
+
+message SubmitSolutionRequest {
+  string problem_slug = 1;
+  string language = 2;
+  string source = 3;
+}
+
+message SubmitSolutionResponse {
+  int64 submission_id = 1;
+}
+
+message GetSubmissionRequest {
+  int64 submission_id = 1;
+}
+
+message GetSubmissionResponse {
+  Submission submission = 1;
+  string source = 2;
+  string compile_output = 3;
+  repeated TestResult tests = 4;
+}
+
+message ListMySubmissionsRequest {
+  string problem_slug = 1;
+  int32 page_size = 2;
+  string page_token = 3;
+}
+
+message ListMySubmissionsResponse {
+  repeated Submission submissions = 1;
+  string next_page_token = 2;
+}

@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package valence.v1;
+
+enum ProblemVisibility {
+  PROBLEM_VISIBILITY_UNSPECIFIED = 0;
+  PROBLEM_VISIBILITY_PRIVATE = 1;
+  PROBLEM_VISIBILITY_PUBLIC = 2;
+}
+
+message ProblemSummary {
+  int64 id = 1;
+  string slug = 2;
+  string title = 3;
+  int32 time_limit_ms = 4;
+  int32 memory_limit_kib = 5;
+  ProblemVisibility visibility = 6;
+  bool solved = 7;
+}
+
+message SampleTest {
+  int32 ordinal = 1;
+  string input = 2;
+  string output = 3;
+  bool truncated = 4;
+}
+
+message Problem {
+  int64 id = 1;
+  string slug = 2;
+  string title = 3;
+  string statement_md = 4;
+  int32 time_limit_ms = 5;
+  int32 memory_limit_kib = 6;
+  string checker = 7;
+  int32 revision = 8;
+  ProblemVisibility visibility = 9;
+  repeated SampleTest samples = 10;
+  int32 test_count = 11;
+  bool solved = 12;
+}
+
+service ProblemService {
+  rpc ListProblems(ListProblemsRequest) returns (ListProblemsResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+  rpc GetProblem(GetProblemRequest) returns (GetProblemResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+}
+
+message ListProblemsRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+}
+
+message ListProblemsResponse {
+  repeated ProblemSummary problems = 1;
+  string next_page_token = 2;
+}
+
+message GetProblemRequest {
+  string slug = 1;
+}
+
+message GetProblemResponse {
+  Problem problem = 1;
+}

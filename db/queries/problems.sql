@@ -45,3 +45,6 @@ VALUES (@problem_id, @ordinal, @input_hash, @input_size, @output_hash, @output_s
 -- name: ListSolvedProblemIDs :many
 SELECT DISTINCT problem_id FROM submissions
 WHERE user_id = @user_id AND verdict = 'AC' AND problem_id = ANY (@problem_ids::bigint[]);
+
+-- name: CountTests :one
+SELECT count(*) FROM tests WHERE problem_id = @problem_id;

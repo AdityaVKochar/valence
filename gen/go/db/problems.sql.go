@@ -9,6 +9,17 @@ import (
 	"context"
 )
 
+const countTests = `-- name: CountTests :one
+SELECT count(*) FROM tests WHERE problem_id = $1
+`
+
+func (q *Queries) CountTests(ctx context.Context, problemID int64) (int64, error) {
+	row := q.db.QueryRow(ctx, countTests, problemID)
+	var count int64
+	err := row.Scan(&count)
+	return count, err
+}
+
 const createProblem = `-- name: CreateProblem :one
 INSERT INTO problems (slug, title, statement_md, time_limit_ms, memory_limit_kib, checker, visibility, created_by)
 VALUES ($1, $2, $3, $4, $5, $6, $7, $8)

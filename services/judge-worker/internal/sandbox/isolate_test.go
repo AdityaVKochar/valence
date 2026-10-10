@@ -49,7 +49,7 @@ func TestIsolateArgs(t *testing.T) {
 		t.Fatal(err)
 	}
 	got := strings.Join(args, " ")
-	want := "--cg --box-id=3 --meta=/tmp/m --time=1.500 --wall-time=4.000 --extra-time=0.2 --cg-mem=262144 --processes=1 --fsize=65536 --open-files=64 --stack=262144 --env=PATH=/usr/bin:/bin --dir=/etc --stdin=input.txt --stdout=output.txt --stderr=stderr.txt --run -- ./main x"
+	want := "--cg --box-id=3 --meta=/tmp/m --time=1.500 --wall-time=4.000 --extra-time=0.2 --cg-mem=262144 --processes=1 --fsize=65536 --open-files=64 --stack=262144 --env=PATH=/usr/bin:/bin --dir=/dev/shm:tmp --dir=/etc --stdin=input.txt --stdout=output.txt --stderr=stderr.txt --run -- ./main x"
 	if got != want {
 		t.Fatalf("args:\n got %s\nwant %s", got, want)
 	}
@@ -57,7 +57,7 @@ func TestIsolateArgs(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if got := strings.Join(args, " "); !strings.Contains(got, "--env=PATH=/usr/local/bin:/usr/bin:/bin --stdout=log --stderr-to-stdout --run -- /") || !strings.HasSuffix(got, "/sh -c true") {
+	if got := strings.Join(args, " "); !strings.Contains(got, "--env=PATH=/usr/local/bin:/usr/bin:/bin --dir=/dev/shm:tmp --stdout=log --stderr-to-stdout --run -- /") || !strings.HasSuffix(got, "/sh -c true") {
 		t.Fatalf("args %s", got)
 	}
 	if _, err := isolateArgs(0, "/tmp/m", Cmd{Args: []string{"no-such-binary-xyz"}}); err == nil {

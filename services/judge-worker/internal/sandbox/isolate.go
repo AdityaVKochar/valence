@@ -133,6 +133,9 @@ func isolateArgs(boxID int, meta string, cmd Cmd) ([]string, error) {
 		// helpers (as, ld, java for kotlinc) need a PATH.
 		args = append(args, "--env=PATH="+defaultPath)
 	}
+	// isolate binds /dev recursively, which would carry the host's /dev/shm tmpfs into the box
+	// writable. Give every box a private one instead (the write-outside escape case checks this).
+	args = append(args, "--dir=/dev/shm:tmp")
 	for _, d := range cmd.Dirs {
 		args = append(args, "--dir="+d)
 	}

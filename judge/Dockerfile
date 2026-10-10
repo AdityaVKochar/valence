@@ -48,6 +48,12 @@ RUN curl -fsSL -o /tmp/kotlin.zip \
 # isolate mounts into every box.
 COPY --from=go /usr/local/go /usr/local/go
 RUN ln -s /usr/local/go/bin/go /usr/local/bin/go
+# Boxes do not mount /etc unless a language asks for it, so a compiler reached through
+# /etc/alternatives (cc, which rustc links with) would not be found. Point those links
+# straight at their targets.
+RUN for l in /usr/bin/* /usr/local/bin/*; do \
+      case "$(readlink "$l")" in /etc/alternatives/*) ln -sf "$(readlink -f "$l")" "$l" ;; esac; \
+    done
 COPY --from=isolate /isolate/isolate /usr/local/bin/isolate
 COPY --from=isolate /isolate/default.cf /usr/local/etc/isolate
 RUN chmod 4755 /usr/local/bin/isolate

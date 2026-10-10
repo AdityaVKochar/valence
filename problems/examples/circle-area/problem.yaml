@@ -1,0 +1,7 @@
+slug: circle-area
+title: Area of a Circle
+time_limit_ms: 1000
+memory_limit_mib: 256
+checker: float:1e-6
+visibility: public
+samples: [1]

@@ -1,0 +1,2 @@
+proves: Threads count against the process limit, so a program cannot start thousands of threads on the host.
+verdicts: [AC, RE, TLE, MLE]

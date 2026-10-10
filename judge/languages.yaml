@@ -1,0 +1,160 @@
+languages:
+  - id: cpp17
+    name: C++17 (GCC)
+    monaco: cpp
+    source: main.cpp
+    compile: [g++, -std=gnu++17, -O2, -pipe, -o, main, main.cpp]
+    run: [./main]
+    template: |
+      #include <bits/stdc++.h>
+      using namespace std;
+
+      int main() {
+          ios::sync_with_stdio(false);
+          cin.tie(nullptr);
+
+          return 0;
+      }
+
+  - id: c17
+    name: C17 (GCC)
+    monaco: c
+    source: main.c
+    compile: [gcc, -std=gnu17, -O2, -pipe, -o, main, main.c, -lm]
+    run: [./main]
+    template: |
+      #include <stdio.h>
+
+      int main(void) {
+
+          return 0;
+      }
+
+  - id: python3
+    name: Python 3
+    monaco: python
+    source: main.py
+    compile: [python3, -m, py_compile, main.py]
+    run: [python3, main.py]
+    time_multiplier: 2
+    memory_overhead_mib: 16
+    template: |
+      import sys
+
+      def main():
+          data = sys.stdin.read().split()
+
+      main()
+
+  - id: pypy3
+    name: PyPy 3
+    monaco: python
+    source: main.py
+    compile: [pypy3, -m, py_compile, main.py]
+    run: [pypy3, main.py]
+    time_multiplier: 1.5
+    memory_overhead_mib: 64
+    template: |
+      import sys
+
+      def main():
+          data = sys.stdin.read().split()
+
+      main()
+
+  - id: java21
+    name: Java 21
+    monaco: java
+    source: Main.java
+    compile: [javac, -J-Xmx512m, -encoding, UTF-8, Main.java]
+    run: [java, -XX:+UseSerialGC, -XX:TieredStopAtLevel=4, -Xss64m, "-Xmx{memory_mib}m", Main]
+    time_multiplier: 1.5
+    memory_overhead_mib: 64
+    compile_processes: 64
+    run_processes: 64
+    unbounded_address_space: true
+    dirs: [/etc]
+    template: |
+      import java.io.*;
+      import java.util.*;
+
+      public class Main {
+          public static void main(String[] args) throws IOException {
+              BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+
+          }
+      }
+
+  - id: kotlin
+    name: Kotlin (JVM)
+    monaco: kotlin
+    source: main.kt
+    compile: [kotlinc, -J-Xmx1g, main.kt, -include-runtime, -d, main.jar]
+    run: [java, -XX:+UseSerialGC, -Xss64m, "-Xmx{memory_mib}m", -jar, main.jar]
+    time_multiplier: 1.5
+    memory_overhead_mib: 64
+    compile_time_limit_ms: 60000
+    compile_memory_mib: 2048
+    compile_processes: 64
+    run_processes: 64
+    unbounded_address_space: true
+    dirs: [/etc]
+    template: |
+      fun main() {
+          val (a, b) = readln().split(" ").map { it.toLong() }
+      }
+
+  - id: go
+    name: Go
+    monaco: go
+    source: main.go
+    compile: [go, build, -o, main, main.go]
+    run: [./main]
+    env:
+      GOCACHE: /tmp/gocache
+      GOPATH: /tmp/gopath
+      CGO_ENABLED: "0"
+      GOTOOLCHAIN: local
+      HOME: /tmp
+    compile_time_limit_ms: 30000
+    compile_memory_mib: 1024
+    compile_processes: 64
+    run_processes: 64
+    unbounded_address_space: true
+    template: |
+      package main
+
+      import (
+      	"bufio"
+      	"fmt"
+      	"os"
+      )
+
+      func main() {
+      	in := bufio.NewReader(os.Stdin)
+      	out := bufio.NewWriter(os.Stdout)
+      	defer out.Flush()
+      	var a, b int64
+      	fmt.Fscan(in, &a, &b)
+      }
+
+  - id: rust
+    name: Rust
+    monaco: rust
+    source: main.rs
+    compile: [rustc, --edition=2021, -O, -o, main, main.rs]
+    run: [./main]
+    env:
+      HOME: /tmp
+    compile_time_limit_ms: 30000
+    compile_memory_mib: 1024
+    compile_processes: 64
+    template: |
+      use std::io::{self, Read, Write};
+
+      fn main() {
+          let mut input = String::new();
+          io::stdin().read_to_string(&mut input).unwrap();
+          let mut out = io::BufWriter::new(io::stdout().lock());
+          let _ = writeln!(out);
+      }

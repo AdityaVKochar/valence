@@ -1,0 +1,7 @@
+slug: output-heavy
+title: Count Up
+time_limit_ms: 1000
+memory_limit_mib: 256
+checker: tokens
+visibility: public
+samples: [1]

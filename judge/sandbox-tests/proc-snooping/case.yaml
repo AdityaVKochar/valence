@@ -1,0 +1,2 @@
+proves: A submission runs in its own PID namespace and cannot see the worker, the database or any other process on the host.
+verdicts: [AC, RE]

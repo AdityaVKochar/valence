@@ -10,7 +10,7 @@ Valence is ACMVIT's in-house competitive programming platform. It runs contests 
 - [Go](https://go.dev/dl/) 1.25 or newer
 - [Node.js](https://nodejs.org/) 22 or newer and [pnpm](https://pnpm.io/installation) 10
 - [Docker](https://docs.docker.com/get-docker/), for Postgres
-- [goose](https://github.com/pressly/goose), for database migrations: `go install github.com/pressly/goose/v3/cmd/goose@latest`
+- A C/C++ compiler and Python 3, to judge submissions locally. Other languages work when their compilers are installed.
 
 ### 1. Clone and install
 
@@ -19,17 +19,20 @@ git clone https://github.com/AdityaVKochar/valence.git
 cd valence
 pnpm install
 go mod download
+cp .env.example .env
 ```
 
-### 2. Start Postgres and apply migrations
+`make help` lists every target. The Makefile reads `.env`, so the defaults work as they are.
+
+### 2. Start Postgres and load the sample problems
 
 ```bash
 docker run -d --name valence-pg -p 5432:5432 \
   -e POSTGRES_USER=valence -e POSTGRES_PASSWORD=valence -e POSTGRES_DB=valence \
   postgres:17
 
-export DATABASE_URL="postgres://valence:valence@localhost:5432/valence?sslmode=disable"
-goose -dir db/migrations postgres "$DATABASE_URL" up
+make migrate   # the API also migrates on start in dev
+make seed      # imports the six problems in problems/examples
 ```
 
 ### 3. Run the services
@@ -37,27 +40,43 @@ goose -dir db/migrations postgres "$DATABASE_URL" up
 Each in its own terminal:
 
 ```bash
-go run ./services/api/cmd/api                    # http://localhost:8080/healthz
-go run ./services/judge-worker/cmd/judge-worker  # http://localhost:8081/healthz
-pnpm --filter web dev                            # http://localhost:5173
+make run-api                # http://localhost:8080, internal port 8090
+make run-worker             # judges submissions; http://localhost:8081/healthz
+pnpm --filter web dev       # http://localhost:5173
 ```
+
+Without GitHub or Google credentials in `.env`, sign in with the development login: open http://localhost:8080/auth/dev?user=alice (add `&role=admin` for an admin).
+
+On a machine without isolate the worker judges with `local-unsafe`, which runs submissions as your user. That is fine for your own test code; see [docs/judge-setup.md](docs/judge-setup.md) for the sandboxed setup.
 
 ### 4. Check your changes
 
 ```bash
-gofmt -l .        # should print nothing
-go vet ./...
-go test ./...
+make fmt          # gofmt
+make vet
+make test         # needs Postgres: set VALENCE_TEST_DATABASE_URL, or have Docker running
+make gen-check    # after changing proto/ or db/queries/
 pnpm --filter web lint
 pnpm --filter web build
 ```
 
+`make test` includes an end-to-end test that starts the API and a worker and judges every sample solution. `make test-short` skips everything that needs Postgres.
+
 | Service | Port | Override |
 |---|---|---|
-| api | 8080 | `-addr` flag or `API_ADDR` |
-| judge-worker | 8081 | `-addr` flag or `WORKER_ADDR` |
+| api | 8080 | `API_ADDR` |
+| api (internal: workers, metrics) | 8090 | `API_INTERNAL_ADDR` |
+| judge-worker | 8081 | `WORKER_ADDR` |
 | web (Vite) | 5173 | |
 | Postgres | 5432 | |
+
+### Docs
+
+- [Problem package format](docs/problem-format.md)
+- [How judging works](docs/judging.md)
+- [Running a judge worker](docs/judge-setup.md)
+- [Sandbox escape tests](judge/sandbox-tests/README.md)
+- Load testing: `make smoke` runs [loadtest/smoke.js](loadtest/smoke.js) with [k6](https://grafana.com/docs/k6/latest/set-up/install-k6/)
 
 ## Planned stack
 

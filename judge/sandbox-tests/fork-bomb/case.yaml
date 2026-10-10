@@ -1,0 +1,2 @@
+proves: A program cannot create more processes than the language allows, so a fork bomb cannot exhaust the host's process table.
+verdicts: [AC, RE, TLE]

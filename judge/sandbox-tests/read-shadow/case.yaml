@@ -1,0 +1,2 @@
+proves: Host secrets such as /etc/shadow, SSH keys and the worker's environment are not readable from a submission.
+verdicts: [AC, RE]

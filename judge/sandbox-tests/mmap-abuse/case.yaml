@@ -1,0 +1,2 @@
+proves: Reserving a huge mapping and touching it is still bounded by the memory limit, whatever address space the program asks for.
+verdicts: [MLE, RE, TLE]

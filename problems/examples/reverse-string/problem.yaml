@@ -1,0 +1,7 @@
+slug: reverse-string
+title: Reverse a String
+time_limit_ms: 1000
+memory_limit_mib: 256
+checker: exact
+visibility: public
+samples: [1, 2]

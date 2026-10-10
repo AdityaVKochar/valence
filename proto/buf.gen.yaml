@@ -1,0 +1,19 @@
+version: v2
+managed:
+  enabled: true
+  override:
+    - file_option: go_package_prefix
+      value: github.com/AdityaVKochar/valence/gen/go/proto
+clean: true
+plugins:
+  - local: protoc-gen-go
+    out: ../gen/go/proto
+    opt: paths=source_relative
+  - local: protoc-gen-connect-go
+    out: ../gen/go/proto
+    opt: paths=source_relative
+  - local: ../apps/web/node_modules/.bin/protoc-gen-es
+    out: ../apps/web/src/gen
+    opt: target=ts
+    exclude_types:
+      - valence.judge.v1

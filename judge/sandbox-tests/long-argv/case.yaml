@@ -1,0 +1,2 @@
+proves: Building a huge argument list and re-executing itself stays within the box's memory and process limits.
+verdicts: [AC, RE, MLE, TLE]

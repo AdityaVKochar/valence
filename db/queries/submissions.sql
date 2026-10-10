@@ -83,3 +83,9 @@ UPDATE submissions SET
     current_test = NULL,
     judged_at = now()
 WHERE id = @id AND attempt = @attempt AND status <> 'finalized';
+
+-- name: LockAttempt :one
+SELECT * FROM submission_attempts WHERE submission_id = @submission_id AND attempt = @attempt FOR UPDATE;
+
+-- name: LockSubmission :one
+SELECT * FROM submissions WHERE id = @id FOR UPDATE;

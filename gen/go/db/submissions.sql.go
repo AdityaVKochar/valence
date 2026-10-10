@@ -406,6 +406,63 @@ func (q *Queries) ListUserSubmissions(ctx context.Context, arg ListUserSubmissio
 	return items, nil
 }
 
+const lockAttempt = `-- name: LockAttempt :one
+SELECT submission_id, attempt, status, verdict, time_ms, memory_kib, compile_output, provider, worker, infra_retries, last_error, created_at, started_at, finished_at FROM submission_attempts WHERE submission_id = $1 AND attempt = $2 FOR UPDATE
+`
+
+type LockAttemptParams struct {
+	SubmissionID int64
+	Attempt      int32
+}
+
+func (q *Queries) LockAttempt(ctx context.Context, arg LockAttemptParams) (SubmissionAttempt, error) {
+	row := q.db.QueryRow(ctx, lockAttempt, arg.SubmissionID, arg.Attempt)
+	var i SubmissionAttempt
+	err := row.Scan(
+		&i.SubmissionID,
+		&i.Attempt,
+		&i.Status,
+		&i.Verdict,
+		&i.TimeMs,
+		&i.MemoryKib,
+		&i.CompileOutput,
+		&i.Provider,
+		&i.Worker,
+		&i.InfraRetries,
+		&i.LastError,
+		&i.CreatedAt,
+		&i.StartedAt,
+		&i.FinishedAt,
+	)
+	return i, err
+}
+
+const lockSubmission = `-- name: LockSubmission :one
+SELECT id, user_id, problem_id, problem_revision, language, source, attempt, status, verdict, time_ms, memory_kib, current_test, created_at, judged_at FROM submissions WHERE id = $1 FOR UPDATE
+`
+
+func (q *Queries) LockSubmission(ctx context.Context, id int64) (Submission, error) {
+	row := q.db.QueryRow(ctx, lockSubmission, id)
+	var i Submission
+	err := row.Scan(
+		&i.ID,
+		&i.UserID,
+		&i.ProblemID,
+		&i.ProblemRevision,
+		&i.Language,
+		&i.Source,
+		&i.Attempt,
+		&i.Status,
+		&i.Verdict,
+		&i.TimeMs,
+		&i.MemoryKib,
+		&i.CurrentTest,
+		&i.CreatedAt,
+		&i.JudgedAt,
+	)
+	return i, err
+}
+
 const setAttemptProgress = `-- name: SetAttemptProgress :execrows
 UPDATE submission_attempts SET
     status = $1,

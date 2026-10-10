@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.36.12
 // 	protoc        (unknown)
-// source: valence/internal/v1/judge.proto
+// source: valence/judge/v1/judge.proto
 
-package internalv1
+package judgev1
 
 import (
 	v1 "github.com/AdityaVKochar/valence/gen/go/proto/valence/v1"
@@ -64,11 +64,11 @@ func (x Stage) String() string {
 }
 
 func (Stage) Descriptor() protoreflect.EnumDescriptor {
-	return file_valence_internal_v1_judge_proto_enumTypes[0].Descriptor()
+	return file_valence_judge_v1_judge_proto_enumTypes[0].Descriptor()
 }
 
 func (Stage) Type() protoreflect.EnumType {
-	return &file_valence_internal_v1_judge_proto_enumTypes[0]
+	return &file_valence_judge_v1_judge_proto_enumTypes[0]
 }
 
 func (x Stage) Number() protoreflect.EnumNumber {
@@ -77,7 +77,7 @@ func (x Stage) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use Stage.Descriptor instead.
 func (Stage) EnumDescriptor() ([]byte, []int) {
-	return file_valence_internal_v1_judge_proto_rawDescGZIP(), []int{0}
+	return file_valence_judge_v1_judge_proto_rawDescGZIP(), []int{0}
 }
 
 type GetJobRequest struct {
@@ -90,7 +90,7 @@ type GetJobRequest struct {
 
 func (x *GetJobRequest) Reset() {
 	*x = GetJobRequest{}
-	mi := &file_valence_internal_v1_judge_proto_msgTypes[0]
+	mi := &file_valence_judge_v1_judge_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -102,7 +102,7 @@ func (x *GetJobRequest) String() string {
 func (*GetJobRequest) ProtoMessage() {}
 
 func (x *GetJobRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_valence_internal_v1_judge_proto_msgTypes[0]
+	mi := &file_valence_judge_v1_judge_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -115,7 +115,7 @@ func (x *GetJobRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetJobRequest.ProtoReflect.Descriptor instead.
 func (*GetJobRequest) Descriptor() ([]byte, []int) {
-	return file_valence_internal_v1_judge_proto_rawDescGZIP(), []int{0}
+	return file_valence_judge_v1_judge_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *GetJobRequest) GetSubmissionId() int64 {
@@ -145,7 +145,7 @@ type JudgeTest struct {
 
 func (x *JudgeTest) Reset() {
 	*x = JudgeTest{}
-	mi := &file_valence_internal_v1_judge_proto_msgTypes[1]
+	mi := &file_valence_judge_v1_judge_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -157,7 +157,7 @@ func (x *JudgeTest) String() string {
 func (*JudgeTest) ProtoMessage() {}
 
 func (x *JudgeTest) ProtoReflect() protoreflect.Message {
-	mi := &file_valence_internal_v1_judge_proto_msgTypes[1]
+	mi := &file_valence_judge_v1_judge_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -170,7 +170,7 @@ func (x *JudgeTest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use JudgeTest.ProtoReflect.Descriptor instead.
 func (*JudgeTest) Descriptor() ([]byte, []int) {
-	return file_valence_internal_v1_judge_proto_rawDescGZIP(), []int{1}
+	return file_valence_judge_v1_judge_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *JudgeTest) GetOrdinal() int32 {
@@ -224,7 +224,7 @@ type JudgeJob struct {
 
 func (x *JudgeJob) Reset() {
 	*x = JudgeJob{}
-	mi := &file_valence_internal_v1_judge_proto_msgTypes[2]
+	mi := &file_valence_judge_v1_judge_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -236,7 +236,7 @@ func (x *JudgeJob) String() string {
 func (*JudgeJob) ProtoMessage() {}
 
 func (x *JudgeJob) ProtoReflect() protoreflect.Message {
-	mi := &file_valence_internal_v1_judge_proto_msgTypes[2]
+	mi := &file_valence_judge_v1_judge_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -249,7 +249,7 @@ func (x *JudgeJob) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use JudgeJob.ProtoReflect.Descriptor instead.
 func (*JudgeJob) Descriptor() ([]byte, []int) {
-	return file_valence_internal_v1_judge_proto_rawDescGZIP(), []int{2}
+	return file_valence_judge_v1_judge_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *JudgeJob) GetSubmissionId() int64 {
@@ -318,7 +318,7 @@ type GetJobResponse struct {
 
 func (x *GetJobResponse) Reset() {
 	*x = GetJobResponse{}
-	mi := &file_valence_internal_v1_judge_proto_msgTypes[3]
+	mi := &file_valence_judge_v1_judge_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -330,7 +330,7 @@ func (x *GetJobResponse) String() string {
 func (*GetJobResponse) ProtoMessage() {}
 
 func (x *GetJobResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_valence_internal_v1_judge_proto_msgTypes[3]
+	mi := &file_valence_judge_v1_judge_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -343,7 +343,7 @@ func (x *GetJobResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetJobResponse.ProtoReflect.Descriptor instead.
 func (*GetJobResponse) Descriptor() ([]byte, []int) {
-	return file_valence_internal_v1_judge_proto_rawDescGZIP(), []int{3}
+	return file_valence_judge_v1_judge_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *GetJobResponse) GetJob() *JudgeJob {
@@ -364,7 +364,7 @@ type ReportProgressRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	SubmissionId  int64                  `protobuf:"varint,1,opt,name=submission_id,json=submissionId,proto3" json:"submission_id,omitempty"`
 	Attempt       int32                  `protobuf:"varint,2,opt,name=attempt,proto3" json:"attempt,omitempty"`
-	Stage         Stage                  `protobuf:"varint,3,opt,name=stage,proto3,enum=valence.internal.v1.Stage" json:"stage,omitempty"`
+	Stage         Stage                  `protobuf:"varint,3,opt,name=stage,proto3,enum=valence.judge.v1.Stage" json:"stage,omitempty"`
 	Test          int32                  `protobuf:"varint,4,opt,name=test,proto3" json:"test,omitempty"`
 	Provider      string                 `protobuf:"bytes,5,opt,name=provider,proto3" json:"provider,omitempty"`
 	Worker        string                 `protobuf:"bytes,6,opt,name=worker,proto3" json:"worker,omitempty"`
@@ -374,7 +374,7 @@ type ReportProgressRequest struct {
 
 func (x *ReportProgressRequest) Reset() {
 	*x = ReportProgressRequest{}
-	mi := &file_valence_internal_v1_judge_proto_msgTypes[4]
+	mi := &file_valence_judge_v1_judge_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -386,7 +386,7 @@ func (x *ReportProgressRequest) String() string {
 func (*ReportProgressRequest) ProtoMessage() {}
 
 func (x *ReportProgressRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_valence_internal_v1_judge_proto_msgTypes[4]
+	mi := &file_valence_judge_v1_judge_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -399,7 +399,7 @@ func (x *ReportProgressRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReportProgressRequest.ProtoReflect.Descriptor instead.
 func (*ReportProgressRequest) Descriptor() ([]byte, []int) {
-	return file_valence_internal_v1_judge_proto_rawDescGZIP(), []int{4}
+	return file_valence_judge_v1_judge_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *ReportProgressRequest) GetSubmissionId() int64 {
@@ -453,7 +453,7 @@ type ReportProgressResponse struct {
 
 func (x *ReportProgressResponse) Reset() {
 	*x = ReportProgressResponse{}
-	mi := &file_valence_internal_v1_judge_proto_msgTypes[5]
+	mi := &file_valence_judge_v1_judge_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -465,7 +465,7 @@ func (x *ReportProgressResponse) String() string {
 func (*ReportProgressResponse) ProtoMessage() {}
 
 func (x *ReportProgressResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_valence_internal_v1_judge_proto_msgTypes[5]
+	mi := &file_valence_judge_v1_judge_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -478,7 +478,7 @@ func (x *ReportProgressResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReportProgressResponse.ProtoReflect.Descriptor instead.
 func (*ReportProgressResponse) Descriptor() ([]byte, []int) {
-	return file_valence_internal_v1_judge_proto_rawDescGZIP(), []int{5}
+	return file_valence_judge_v1_judge_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *ReportProgressResponse) GetAccepted() bool {
@@ -500,7 +500,7 @@ type JudgeTestResult struct {
 
 func (x *JudgeTestResult) Reset() {
 	*x = JudgeTestResult{}
-	mi := &file_valence_internal_v1_judge_proto_msgTypes[6]
+	mi := &file_valence_judge_v1_judge_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -512,7 +512,7 @@ func (x *JudgeTestResult) String() string {
 func (*JudgeTestResult) ProtoMessage() {}
 
 func (x *JudgeTestResult) ProtoReflect() protoreflect.Message {
-	mi := &file_valence_internal_v1_judge_proto_msgTypes[6]
+	mi := &file_valence_judge_v1_judge_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -525,7 +525,7 @@ func (x *JudgeTestResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use JudgeTestResult.ProtoReflect.Descriptor instead.
 func (*JudgeTestResult) Descriptor() ([]byte, []int) {
-	return file_valence_internal_v1_judge_proto_rawDescGZIP(), []int{6}
+	return file_valence_judge_v1_judge_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *JudgeTestResult) GetOrdinal() int32 {
@@ -575,7 +575,7 @@ type ReportResultRequest struct {
 
 func (x *ReportResultRequest) Reset() {
 	*x = ReportResultRequest{}
-	mi := &file_valence_internal_v1_judge_proto_msgTypes[7]
+	mi := &file_valence_judge_v1_judge_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -587,7 +587,7 @@ func (x *ReportResultRequest) String() string {
 func (*ReportResultRequest) ProtoMessage() {}
 
 func (x *ReportResultRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_valence_internal_v1_judge_proto_msgTypes[7]
+	mi := &file_valence_judge_v1_judge_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -600,7 +600,7 @@ func (x *ReportResultRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReportResultRequest.ProtoReflect.Descriptor instead.
 func (*ReportResultRequest) Descriptor() ([]byte, []int) {
-	return file_valence_internal_v1_judge_proto_rawDescGZIP(), []int{7}
+	return file_valence_judge_v1_judge_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *ReportResultRequest) GetSubmissionId() int64 {
@@ -689,7 +689,7 @@ type ReportResultResponse struct {
 
 func (x *ReportResultResponse) Reset() {
 	*x = ReportResultResponse{}
-	mi := &file_valence_internal_v1_judge_proto_msgTypes[8]
+	mi := &file_valence_judge_v1_judge_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -701,7 +701,7 @@ func (x *ReportResultResponse) String() string {
 func (*ReportResultResponse) ProtoMessage() {}
 
 func (x *ReportResultResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_valence_internal_v1_judge_proto_msgTypes[8]
+	mi := &file_valence_judge_v1_judge_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -714,7 +714,7 @@ func (x *ReportResultResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReportResultResponse.ProtoReflect.Descriptor instead.
 func (*ReportResultResponse) Descriptor() ([]byte, []int) {
-	return file_valence_internal_v1_judge_proto_rawDescGZIP(), []int{8}
+	return file_valence_judge_v1_judge_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *ReportResultResponse) GetApplied() bool {
@@ -724,11 +724,11 @@ func (x *ReportResultResponse) GetApplied() bool {
 	return false
 }
 
-var File_valence_internal_v1_judge_proto protoreflect.FileDescriptor
+var File_valence_judge_v1_judge_proto protoreflect.FileDescriptor
 
-const file_valence_internal_v1_judge_proto_rawDesc = "" +
+const file_valence_judge_v1_judge_proto_rawDesc = "" +
 	"\n" +
-	"\x1fvalence/internal/v1/judge.proto\x12\x13valence.internal.v1\x1a\x1bvalence/v1/submission.proto\"N\n" +
+	"\x1cvalence/judge/v1/judge.proto\x12\x10valence.judge.v1\x1a\x1bvalence/v1/submission.proto\"N\n" +
 	"\rGetJobRequest\x12#\n" +
 	"\rsubmission_id\x18\x01 \x01(\x03R\fsubmissionId\x12\x18\n" +
 	"\aattempt\x18\x02 \x01(\x05R\aattempt\"\xa1\x01\n" +
@@ -740,7 +740,7 @@ const file_valence_internal_v1_judge_proto_rawDesc = "" +
 	"\n" +
 	"output_key\x18\x04 \x01(\tR\toutputKey\x12\x1f\n" +
 	"\voutput_size\x18\x05 \x01(\x03R\n" +
-	"outputSize\"\x9b\x02\n" +
+	"outputSize\"\x98\x02\n" +
 	"\bJudgeJob\x12#\n" +
 	"\rsubmission_id\x18\x01 \x01(\x03R\fsubmissionId\x12\x18\n" +
 	"\aattempt\x18\x02 \x01(\x05R\aattempt\x12\x1a\n" +
@@ -748,15 +748,15 @@ const file_valence_internal_v1_judge_proto_rawDesc = "" +
 	"\x06source\x18\x04 \x01(\fR\x06source\x12\"\n" +
 	"\rtime_limit_ms\x18\x05 \x01(\x05R\vtimeLimitMs\x12(\n" +
 	"\x10memory_limit_kib\x18\x06 \x01(\x05R\x0ememoryLimitKib\x12\x18\n" +
-	"\achecker\x18\a \x01(\tR\achecker\x124\n" +
-	"\x05tests\x18\b \x03(\v2\x1e.valence.internal.v1.JudgeTestR\x05tests\"n\n" +
-	"\x0eGetJobResponse\x12/\n" +
-	"\x03job\x18\x01 \x01(\v2\x1d.valence.internal.v1.JudgeJobR\x03job\x12+\n" +
-	"\x11already_finalized\x18\x02 \x01(\bR\x10alreadyFinalized\"\xd0\x01\n" +
+	"\achecker\x18\a \x01(\tR\achecker\x121\n" +
+	"\x05tests\x18\b \x03(\v2\x1b.valence.judge.v1.JudgeTestR\x05tests\"k\n" +
+	"\x0eGetJobResponse\x12,\n" +
+	"\x03job\x18\x01 \x01(\v2\x1a.valence.judge.v1.JudgeJobR\x03job\x12+\n" +
+	"\x11already_finalized\x18\x02 \x01(\bR\x10alreadyFinalized\"\xcd\x01\n" +
 	"\x15ReportProgressRequest\x12#\n" +
 	"\rsubmission_id\x18\x01 \x01(\x03R\fsubmissionId\x12\x18\n" +
-	"\aattempt\x18\x02 \x01(\x05R\aattempt\x120\n" +
-	"\x05stage\x18\x03 \x01(\x0e2\x1a.valence.internal.v1.StageR\x05stage\x12\x12\n" +
+	"\aattempt\x18\x02 \x01(\x05R\aattempt\x12-\n" +
+	"\x05stage\x18\x03 \x01(\x0e2\x17.valence.judge.v1.StageR\x05stage\x12\x12\n" +
 	"\x04test\x18\x04 \x01(\x05R\x04test\x12\x1a\n" +
 	"\bprovider\x18\x05 \x01(\tR\bprovider\x12\x16\n" +
 	"\x06worker\x18\x06 \x01(\tR\x06worker\"4\n" +
@@ -767,13 +767,13 @@ const file_valence_internal_v1_judge_proto_rawDesc = "" +
 	"\averdict\x18\x02 \x01(\x0e2\x13.valence.v1.VerdictR\averdict\x12\x17\n" +
 	"\atime_ms\x18\x03 \x01(\x05R\x06timeMs\x12\x1d\n" +
 	"\n" +
-	"memory_kib\x18\x04 \x01(\x05R\tmemoryKib\"\x8d\x03\n" +
+	"memory_kib\x18\x04 \x01(\x05R\tmemoryKib\"\x8a\x03\n" +
 	"\x13ReportResultRequest\x12#\n" +
 	"\rsubmission_id\x18\x01 \x01(\x03R\fsubmissionId\x12\x18\n" +
 	"\aattempt\x18\x02 \x01(\x05R\aattempt\x12-\n" +
 	"\averdict\x18\x03 \x01(\x0e2\x13.valence.v1.VerdictR\averdict\x12%\n" +
-	"\x0ecompile_output\x18\x04 \x01(\tR\rcompileOutput\x12:\n" +
-	"\x05tests\x18\x05 \x03(\v2$.valence.internal.v1.JudgeTestResultR\x05tests\x12\x17\n" +
+	"\x0ecompile_output\x18\x04 \x01(\tR\rcompileOutput\x127\n" +
+	"\x05tests\x18\x05 \x03(\v2!.valence.judge.v1.JudgeTestResultR\x05tests\x12\x17\n" +
 	"\atime_ms\x18\x06 \x01(\x05R\x06timeMs\x12\x1d\n" +
 	"\n" +
 	"memory_kib\x18\a \x01(\x05R\tmemoryKib\x12\x1a\n" +
@@ -790,54 +790,54 @@ const file_valence_internal_v1_judge_proto_rawDesc = "" +
 	"\x0fSTAGE_COMPILING\x10\x02\x12\x11\n" +
 	"\rSTAGE_RUNNING\x10\x03\x12\x12\n" +
 	"\x0eSTAGE_CHECKING\x10\x04\x12\x19\n" +
-	"\x15STAGE_RETRYABLE_ERROR\x10\x052\xb1\x02\n" +
-	"\fJudgeService\x12Q\n" +
-	"\x06GetJob\x12\".valence.internal.v1.GetJobRequest\x1a#.valence.internal.v1.GetJobResponse\x12i\n" +
-	"\x0eReportProgress\x12*.valence.internal.v1.ReportProgressRequest\x1a+.valence.internal.v1.ReportProgressResponse\x12c\n" +
-	"\fReportResult\x12(.valence.internal.v1.ReportResultRequest\x1a).valence.internal.v1.ReportResultResponseB\xe1\x01\n" +
-	"\x17com.valence.internal.v1B\n" +
-	"JudgeProtoP\x01ZLgithub.com/AdityaVKochar/valence/gen/go/proto/valence/internal/v1;internalv1\xa2\x02\x03VIX\xaa\x02\x13Valence.Internal.V1\xca\x02\x13Valence\\Internal\\V1\xe2\x02\x1fValence\\Internal\\V1\\GPBMetadata\xea\x02\x15Valence::Internal::V1b\x06proto3"
+	"\x15STAGE_RETRYABLE_ERROR\x10\x052\x9f\x02\n" +
+	"\fJudgeService\x12K\n" +
+	"\x06GetJob\x12\x1f.valence.judge.v1.GetJobRequest\x1a .valence.judge.v1.GetJobResponse\x12c\n" +
+	"\x0eReportProgress\x12'.valence.judge.v1.ReportProgressRequest\x1a(.valence.judge.v1.ReportProgressResponse\x12]\n" +
+	"\fReportResult\x12%.valence.judge.v1.ReportResultRequest\x1a&.valence.judge.v1.ReportResultResponseB\xcc\x01\n" +
+	"\x14com.valence.judge.v1B\n" +
+	"JudgeProtoP\x01ZFgithub.com/AdityaVKochar/valence/gen/go/proto/valence/judge/v1;judgev1\xa2\x02\x03VJX\xaa\x02\x10Valence.Judge.V1\xca\x02\x10Valence\\Judge\\V1\xe2\x02\x1cValence\\Judge\\V1\\GPBMetadata\xea\x02\x12Valence::Judge::V1b\x06proto3"
 
 var (
-	file_valence_internal_v1_judge_proto_rawDescOnce sync.Once
-	file_valence_internal_v1_judge_proto_rawDescData []byte
+	file_valence_judge_v1_judge_proto_rawDescOnce sync.Once
+	file_valence_judge_v1_judge_proto_rawDescData []byte
 )
 
-func file_valence_internal_v1_judge_proto_rawDescGZIP() []byte {
-	file_valence_internal_v1_judge_proto_rawDescOnce.Do(func() {
-		file_valence_internal_v1_judge_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_valence_internal_v1_judge_proto_rawDesc), len(file_valence_internal_v1_judge_proto_rawDesc)))
+func file_valence_judge_v1_judge_proto_rawDescGZIP() []byte {
+	file_valence_judge_v1_judge_proto_rawDescOnce.Do(func() {
+		file_valence_judge_v1_judge_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_valence_judge_v1_judge_proto_rawDesc), len(file_valence_judge_v1_judge_proto_rawDesc)))
 	})
-	return file_valence_internal_v1_judge_proto_rawDescData
+	return file_valence_judge_v1_judge_proto_rawDescData
 }
 
-var file_valence_internal_v1_judge_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_valence_internal_v1_judge_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_valence_internal_v1_judge_proto_goTypes = []any{
-	(Stage)(0),                     // 0: valence.internal.v1.Stage
-	(*GetJobRequest)(nil),          // 1: valence.internal.v1.GetJobRequest
-	(*JudgeTest)(nil),              // 2: valence.internal.v1.JudgeTest
-	(*JudgeJob)(nil),               // 3: valence.internal.v1.JudgeJob
-	(*GetJobResponse)(nil),         // 4: valence.internal.v1.GetJobResponse
-	(*ReportProgressRequest)(nil),  // 5: valence.internal.v1.ReportProgressRequest
-	(*ReportProgressResponse)(nil), // 6: valence.internal.v1.ReportProgressResponse
-	(*JudgeTestResult)(nil),        // 7: valence.internal.v1.JudgeTestResult
-	(*ReportResultRequest)(nil),    // 8: valence.internal.v1.ReportResultRequest
-	(*ReportResultResponse)(nil),   // 9: valence.internal.v1.ReportResultResponse
+var file_valence_judge_v1_judge_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_valence_judge_v1_judge_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_valence_judge_v1_judge_proto_goTypes = []any{
+	(Stage)(0),                     // 0: valence.judge.v1.Stage
+	(*GetJobRequest)(nil),          // 1: valence.judge.v1.GetJobRequest
+	(*JudgeTest)(nil),              // 2: valence.judge.v1.JudgeTest
+	(*JudgeJob)(nil),               // 3: valence.judge.v1.JudgeJob
+	(*GetJobResponse)(nil),         // 4: valence.judge.v1.GetJobResponse
+	(*ReportProgressRequest)(nil),  // 5: valence.judge.v1.ReportProgressRequest
+	(*ReportProgressResponse)(nil), // 6: valence.judge.v1.ReportProgressResponse
+	(*JudgeTestResult)(nil),        // 7: valence.judge.v1.JudgeTestResult
+	(*ReportResultRequest)(nil),    // 8: valence.judge.v1.ReportResultRequest
+	(*ReportResultResponse)(nil),   // 9: valence.judge.v1.ReportResultResponse
 	(v1.Verdict)(0),                // 10: valence.v1.Verdict
 }
-var file_valence_internal_v1_judge_proto_depIdxs = []int32{
-	2,  // 0: valence.internal.v1.JudgeJob.tests:type_name -> valence.internal.v1.JudgeTest
-	3,  // 1: valence.internal.v1.GetJobResponse.job:type_name -> valence.internal.v1.JudgeJob
-	0,  // 2: valence.internal.v1.ReportProgressRequest.stage:type_name -> valence.internal.v1.Stage
-	10, // 3: valence.internal.v1.JudgeTestResult.verdict:type_name -> valence.v1.Verdict
-	10, // 4: valence.internal.v1.ReportResultRequest.verdict:type_name -> valence.v1.Verdict
-	7,  // 5: valence.internal.v1.ReportResultRequest.tests:type_name -> valence.internal.v1.JudgeTestResult
-	1,  // 6: valence.internal.v1.JudgeService.GetJob:input_type -> valence.internal.v1.GetJobRequest
-	5,  // 7: valence.internal.v1.JudgeService.ReportProgress:input_type -> valence.internal.v1.ReportProgressRequest
-	8,  // 8: valence.internal.v1.JudgeService.ReportResult:input_type -> valence.internal.v1.ReportResultRequest
-	4,  // 9: valence.internal.v1.JudgeService.GetJob:output_type -> valence.internal.v1.GetJobResponse
-	6,  // 10: valence.internal.v1.JudgeService.ReportProgress:output_type -> valence.internal.v1.ReportProgressResponse
-	9,  // 11: valence.internal.v1.JudgeService.ReportResult:output_type -> valence.internal.v1.ReportResultResponse
+var file_valence_judge_v1_judge_proto_depIdxs = []int32{
+	2,  // 0: valence.judge.v1.JudgeJob.tests:type_name -> valence.judge.v1.JudgeTest
+	3,  // 1: valence.judge.v1.GetJobResponse.job:type_name -> valence.judge.v1.JudgeJob
+	0,  // 2: valence.judge.v1.ReportProgressRequest.stage:type_name -> valence.judge.v1.Stage
+	10, // 3: valence.judge.v1.JudgeTestResult.verdict:type_name -> valence.v1.Verdict
+	10, // 4: valence.judge.v1.ReportResultRequest.verdict:type_name -> valence.v1.Verdict
+	7,  // 5: valence.judge.v1.ReportResultRequest.tests:type_name -> valence.judge.v1.JudgeTestResult
+	1,  // 6: valence.judge.v1.JudgeService.GetJob:input_type -> valence.judge.v1.GetJobRequest
+	5,  // 7: valence.judge.v1.JudgeService.ReportProgress:input_type -> valence.judge.v1.ReportProgressRequest
+	8,  // 8: valence.judge.v1.JudgeService.ReportResult:input_type -> valence.judge.v1.ReportResultRequest
+	4,  // 9: valence.judge.v1.JudgeService.GetJob:output_type -> valence.judge.v1.GetJobResponse
+	6,  // 10: valence.judge.v1.JudgeService.ReportProgress:output_type -> valence.judge.v1.ReportProgressResponse
+	9,  // 11: valence.judge.v1.JudgeService.ReportResult:output_type -> valence.judge.v1.ReportResultResponse
 	9,  // [9:12] is the sub-list for method output_type
 	6,  // [6:9] is the sub-list for method input_type
 	6,  // [6:6] is the sub-list for extension type_name
@@ -845,27 +845,27 @@ var file_valence_internal_v1_judge_proto_depIdxs = []int32{
 	0,  // [0:6] is the sub-list for field type_name
 }
 
-func init() { file_valence_internal_v1_judge_proto_init() }
-func file_valence_internal_v1_judge_proto_init() {
-	if File_valence_internal_v1_judge_proto != nil {
+func init() { file_valence_judge_v1_judge_proto_init() }
+func file_valence_judge_v1_judge_proto_init() {
+	if File_valence_judge_v1_judge_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_valence_internal_v1_judge_proto_rawDesc), len(file_valence_internal_v1_judge_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_valence_judge_v1_judge_proto_rawDesc), len(file_valence_judge_v1_judge_proto_rawDesc)),
 			NumEnums:      1,
 			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_valence_internal_v1_judge_proto_goTypes,
-		DependencyIndexes: file_valence_internal_v1_judge_proto_depIdxs,
-		EnumInfos:         file_valence_internal_v1_judge_proto_enumTypes,
-		MessageInfos:      file_valence_internal_v1_judge_proto_msgTypes,
+		GoTypes:           file_valence_judge_v1_judge_proto_goTypes,
+		DependencyIndexes: file_valence_judge_v1_judge_proto_depIdxs,
+		EnumInfos:         file_valence_judge_v1_judge_proto_enumTypes,
+		MessageInfos:      file_valence_judge_v1_judge_proto_msgTypes,
 	}.Build()
-	File_valence_internal_v1_judge_proto = out.File
-	file_valence_internal_v1_judge_proto_goTypes = nil
-	file_valence_internal_v1_judge_proto_depIdxs = nil
+	File_valence_judge_v1_judge_proto = out.File
+	file_valence_judge_v1_judge_proto_goTypes = nil
+	file_valence_judge_v1_judge_proto_depIdxs = nil
 }

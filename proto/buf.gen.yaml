@@ -16,4 +16,4 @@ plugins:
     out: ../apps/web/src/gen
     opt: target=ts
     exclude_types:
-      - valence.internal.v1
+      - valence.judge.v1

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package valence.internal.v1;
+package valence.judge.v1;
 
 import "valence/v1/submission.proto";
 

@@ -8,8 +8,10 @@
 set -eu
 
 cg=/sys/fs/cgroup
-if [ ! -s /run/isolate/cgroup ] && [ -f "$cg/cgroup.controllers" ]; then
-	mkdir -p "$cg/init" "$cg/isolate" /run/isolate
+# Without --privileged the cgroup filesystem is read-only; leave it alone so that commands
+# which do not judge (judge-worker -version) still run, and the worker reports isolate unusable.
+if [ ! -s /run/isolate/cgroup ] && [ -f "$cg/cgroup.controllers" ] && mkdir -p "$cg/init" "$cg/isolate" 2>/dev/null; then
+	mkdir -p /run/isolate
 	for pid in $(cat "$cg/cgroup.procs"); do
 		echo "$pid" >"$cg/init/cgroup.procs" 2>/dev/null || true
 	done

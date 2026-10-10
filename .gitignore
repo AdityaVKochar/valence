@@ -2,6 +2,7 @@
 /bin/
 *.test
 *.out
+!/problems/**/tests/*.out
 coverage.*
 /tmp/
 go.work.sum

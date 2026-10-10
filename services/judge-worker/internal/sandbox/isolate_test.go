@@ -57,7 +57,7 @@ func TestIsolateArgs(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if got := strings.Join(args, " "); !strings.Contains(got, "--stderr-to-stdout --run -- /") || !strings.HasSuffix(got, "/sh -c true") {
+	if got := strings.Join(args, " "); !strings.Contains(got, "--env=PATH=/usr/local/bin:/usr/bin:/bin --stdout=log --stderr-to-stdout --run -- /") || !strings.HasSuffix(got, "/sh -c true") {
 		t.Fatalf("args %s", got)
 	}
 	if _, err := isolateArgs(0, "/tmp/m", Cmd{Args: []string{"no-such-binary-xyz"}}); err == nil {

@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  go:
+    name: Go build, vet and test
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: valence
+          POSTGRES_PASSWORD: valence
+          POSTGRES_DB: valence
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U valence"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      VALENCE_TEST_DATABASE_URL: postgres://valence:valence@localhost:5432/valence?sslmode=disable
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: gofmt
+        run: |
+          unformatted=$(gofmt -l $(git ls-files '*.go' | grep -v '^gen/'))
+          if [ -n "$unformatted" ]; then
+            echo "Run 'make fmt' and commit the result:"
+            echo "$unformatted"
+            exit 1
+          fi
+      - run: go vet ./...
+      - run: go build ./...
+      - name: go test (includes Postgres and end-to-end tests)
+        run: go test -race ./...
+
+  generated:
+    name: Generated code is up to date
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: make gen-check
+
+  judge-image:
+    name: Judge image, isolate tests and sandbox escape suite
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build the worker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: judge/Dockerfile
+          target: runtime
+          tags: valence-judge:ci
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Build the test image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: judge/Dockerfile
+          target: test
+          tags: valence-judge-test:ci
+          load: true
+          cache-from: type=gha
+      - name: Worker binary starts
+        run: docker run --rm valence-judge:ci judge-worker -version
+      - name: Judge tests and escape suite under isolate
+        run: docker run --rm --privileged --cgroupns=private valence-judge-test:ci

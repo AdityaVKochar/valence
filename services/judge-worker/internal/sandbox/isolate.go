@@ -15,6 +15,8 @@ import (
 	"time"
 )
 
+const defaultPath = "/usr/local/bin:/usr/bin:/bin"
+
 type Isolate struct {
 	Bin     string
 	BoxBase int
@@ -121,8 +123,15 @@ func isolateArgs(boxID int, meta string, cmd Cmd) ([]string, error) {
 	if l.StackKiB > 0 {
 		args = append(args, "--stack="+strconv.FormatInt(l.StackKiB, 10))
 	}
+	hasPath := false
 	for _, e := range cmd.Env {
 		args = append(args, "--env="+e)
+		hasPath = hasPath || strings.HasPrefix(e, "PATH=")
+	}
+	if !hasPath {
+		// isolate starts programs with an empty environment; compilers that look up their
+		// helpers (as, ld, java for kotlinc) need a PATH.
+		args = append(args, "--env=PATH="+defaultPath)
 	}
 	for _, d := range cmd.Dirs {
 		args = append(args, "--dir="+d)
@@ -150,7 +159,7 @@ func resolve(prog string, env []string) (string, error) {
 	if strings.Contains(prog, "/") {
 		return prog, nil
 	}
-	path := "/usr/local/bin:/usr/bin:/bin"
+	path := defaultPath
 	for _, e := range env {
 		if v, ok := strings.CutPrefix(e, "PATH="); ok {
 			path = v
